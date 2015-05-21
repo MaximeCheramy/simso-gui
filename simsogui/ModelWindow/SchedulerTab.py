@@ -109,12 +109,6 @@ class SchedulerTable(QTableWidget):
         btn_open.clicked.connect(self._open_scheduler)
         self.setCellWidget(0, 1, btn_open)
 
-        #self.btn_edit = QPushButton(self)
-        #self.btn_edit.setText('Edit')
-        #self.btn_edit.clicked.connect(self._simulation_tab.openEditor)
-        #self.btn_edit.setEnabled(bool(self._configuration.scheduler_info.name))
-        #self.setCellWidget(0, 2, self.btn_edit)
-
         self.setItem(
             1, 0, QTableWidgetItem(str(
                 self._configuration.scheduler_info.overhead))
@@ -156,14 +150,11 @@ class SchedulerTable(QTableWidget):
             try:
                 self.item(0, 0).setText(
                     self._configuration.scheduler_info.name)
-                #self.btn_edit.setEnabled(True)
             except Exception as e:
                 QMessageBox.critical(None, "Error loading scheduler",
                                      str(e),
                                      QMessageBox.Ok | QMessageBox.Default,
                                      QMessageBox.NoButton)
-
-                #self.btn_edit.setEnabled(False)
 
     def _cell_changed(self, row, col):
         if not self._manual_change:
