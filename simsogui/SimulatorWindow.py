@@ -8,6 +8,7 @@ from PyQt4.QtGui import QMainWindow, QMenu, QAction, QStyle, \
 
 import os.path
 import simso
+import simsogui
 
 from .SimulationTab import SimulationTab
 
@@ -184,11 +185,12 @@ class SimulatorWindow(QMainWindow):
     def showAbout(self):
         QMessageBox.about(
             self, "About SimSo",
-            "<b>SimSo {} - Simulation of Multiprocessor Scheduling with Overheads</b><br/><br/>"
+            "<b>SimSo - Simulation of Multiprocessor Scheduling with Overheads</b><br/><br/>"
+            "Version: SimSo {}, Graphical User Interface {}<br/><br/>"
             "SimSo is a free software developed by Maxime Cheramy (LAAS-CNRS).<br/>"
             "This software is distributed under the <a href='http://www.cecill.info'>CECILL license</a>, "
             "compatible with the GNU GPL.<br/><br/>"
-            "Contact: <a href='mailto:maxime.cheramy@laas.fr'>maxime.cheramy@laas.fr</a>".format(simso.__version__)
+            "Contact: <a href='mailto:maxime.cheramy@laas.fr'>maxime.cheramy@laas.fr</a>".format(simso.__version__, simsogui.__version__)
 #            "<br/><hr/><br/>"
 #            "The Code Editor, copyright the <a href='http://www.iep-project.org/'>IEP development team</a>, "
 #            "was reproduced and integrated into SimSo in respect of the (new) BSD license."
