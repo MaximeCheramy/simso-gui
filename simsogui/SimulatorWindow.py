@@ -265,6 +265,7 @@ class SimulatorWindow(QMainWindow):
             if simulation_file[-4:] != '.xml':
                 simulation_file += '.xml'
             self.main_tab.currentWidget().save_as(simulation_file)
+            self.setCurrentFile(simulation_file)
 
     def fileRun(self):
         self._runAction.setEnabled(False)
