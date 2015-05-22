@@ -9,6 +9,7 @@ from PyQt4.QtGui import QMainWindow, QMenu, QAction, QStyle, \
 import os.path
 import simso
 import simsogui
+import traceback
 
 from .SimulationTab import SimulationTab
 
@@ -244,11 +245,11 @@ class SimulatorWindow(QMainWindow):
             self.main_tab.addTab(sim, os.path.split(simulation_file)[1])
             self.main_tab.setCurrentWidget(sim)
             self.updateMenus()
-        except Exception as e:
+        except Exception:
             QMessageBox.critical(
                 self, "Could not open file",
                 "The file {} could not be opened.".format(simulation_file))
-            print(e)
+            print(traceback.format_exc())
 
     def fileSave(self):
         try:

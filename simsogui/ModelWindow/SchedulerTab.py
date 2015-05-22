@@ -1,12 +1,14 @@
-#!/usr/bin/python
 # coding=utf-8
 
+import os
 from PyQt4.QtCore import Qt
 from PyQt4.QtGui import QTableWidget, QTableWidgetItem, QFileDialog, \
-    QMessageBox, QPushButton, QHeaderView, QWidget, QHBoxLayout
+    QPushButton, QHeaderView, QWidget, QHBoxLayout, QComboBox
 
 from .CustomFieldsEditor import CustomFieldsEditor
 from .Tab import Tab
+
+from simso.core.Scheduler import get_schedulers
 
 convert_function = {
     'int': int,
@@ -76,8 +78,9 @@ class CustomDataBar(QWidget):
 
 class SchedulerTable(QTableWidget):
     def __init__(self, parent, configuration, simulation_tab):
-        QTableWidget.__init__(self, 4, 2, parent)
-        self._header = ['Scheduler', 'Overhead schedule (cycles)',
+        QTableWidget.__init__(self, 5, 2, parent)
+        self._header = ['Scheduler', 'Scheduler Path',
+                        'Overhead schedule (cycles)',
                         'Overhead on activate (cycles)',
                         'Overhead on terminate (cycles)']
         self._configuration = configuration
@@ -88,7 +91,8 @@ class SchedulerTable(QTableWidget):
 
     def refresh_table(self):
         self._manual_change = True
-        self._custom_fields = list(self._configuration.scheduler_info.data.keys())
+        self._custom_fields = list(
+            self._configuration.scheduler_info.data.keys())
         labels = self._header + self._custom_fields
         self.setRowCount(len(labels))
         self.setVerticalHeaderLabels(labels)
@@ -99,73 +103,93 @@ class SchedulerTable(QTableWidget):
         #header.setResizeMode(2, QHeaderView.Interactive)
         self.horizontalHeader().hide()
 
-        scheduler_item = QTableWidgetItem(
-            self._configuration.scheduler_info.name)
+        combo = QComboBox()
+        combo.addItems(['Custom scheduler...'] + list(get_schedulers()))
+
+        self.setCellWidget(0, 0, combo)
+        self.setSpan(0, 0, 1, 2)
+
+        name = self._configuration.scheduler_info.filename
+        scheduler_item = QTableWidgetItem(name and os.path.relpath(
+            name, self._configuration.cur_dir))
         scheduler_item.setFlags(scheduler_item.flags() ^ (Qt.ItemIsEditable))
-        self.setItem(0, 0, scheduler_item)
+        self.setItem(1, 0, scheduler_item)
 
-        btn_open = QPushButton(self)
-        btn_open.setText('Open')
-        btn_open.clicked.connect(self._open_scheduler)
-        self.setCellWidget(0, 1, btn_open)
+        self._btn_open = QPushButton(self)
+        self._btn_open.setText('Open')
+        self._btn_open.clicked.connect(self._open_scheduler)
+        self.setCellWidget(1, 1, self._btn_open)
 
-        self.setItem(
-            1, 0, QTableWidgetItem(str(
-                self._configuration.scheduler_info.overhead))
-        )
-        self.setSpan(1, 0, 1, 2)
+        combo.currentIndexChanged['QString'].connect(self._select_scheduler)
+        if self._configuration.scheduler_info.clas:
+            i = combo.findText(self._configuration.scheduler_info.clas)
+            if i <= 0:
+                i = 0
+            combo.setCurrentIndex(i)
+
         self.setItem(
             2, 0, QTableWidgetItem(str(
-                self._configuration.scheduler_info.overhead_activate))
+                self._configuration.scheduler_info.overhead))
         )
         self.setSpan(2, 0, 1, 2)
-
         self.setItem(
             3, 0, QTableWidgetItem(str(
-                self._configuration.scheduler_info.overhead_terminate))
+                self._configuration.scheduler_info.overhead_activate))
         )
         self.setSpan(3, 0, 1, 2)
 
-        i = 4
+        self.setItem(
+            4, 0, QTableWidgetItem(str(
+                self._configuration.scheduler_info.overhead_terminate))
+        )
+        self.setSpan(4, 0, 1, 2)
+
+        i = 5
         for name, value in self._configuration.scheduler_info.data.items():
             self.setItem(i, 0, QTableWidgetItem(str(value)))
             self.setSpan(i, 0, 1, 2)
             i += 1
 
     def _cell_activated(self, row, col):
-        if row == 0 and col == 0:
+        if row == 1 and col == 0:
             self._open_scheduler()
+
+    def _select_scheduler(self, name):
+        if name == 'Custom scheduler...':
+            self._configuration.scheduler_info.clas = ''
+            self.item(1, 0).setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
+            self.item(1, 0).setText(self._configuration.scheduler_info.filename)
+            self._btn_open.setEnabled(True)
+        else:
+            self.item(1, 0).setFlags(Qt.ItemIsSelectable)
+            self.item(1, 0).setText('')
+            self._btn_open.setEnabled(False)
+            self._configuration.scheduler_info.clas = name
 
     def _open_scheduler(self):
         name = QFileDialog.getOpenFileName(
             self, caption="Open scheduler",
-            directory=self._configuration.cur_dir, filter="*.py")
+            directory=self._configuration.scheduler_info.filename, filter="*.py")
+        print(name)
         try:
             name = unicode(name)
         except NameError:
             pass
         if name:
-            self._configuration.scheduler_info.set_name(
-                name, self._configuration.cur_dir)
-            try:
-                self.item(0, 0).setText(
-                    self._configuration.scheduler_info.name)
-            except Exception as e:
-                QMessageBox.critical(None, "Error loading scheduler",
-                                     str(e),
-                                     QMessageBox.Ok | QMessageBox.Default,
-                                     QMessageBox.NoButton)
+            self._configuration.scheduler_info.filename = name
+            self.item(1, 0).setText(os.path.relpath(
+                name, self._configuration.cur_dir))
 
     def _cell_changed(self, row, col):
         if not self._manual_change:
             self._manual_change = True
             return
 
-        if row == 1:
+        if row == 2:
             old_value = str(self._configuration.scheduler_info.overhead)
-        elif row == 2:
-            old_value = str(self._configuration.scheduler_info.overhead_activate)
         elif row == 3:
+            old_value = str(self._configuration.scheduler_info.overhead_activate)
+        elif row == 4:
             old_value = str(self._configuration.scheduler_info.overhead_terminate)
         elif row >= len(self._header):
             key = self._custom_fields[row - len(self._header)]
@@ -175,15 +199,15 @@ class SchedulerTable(QTableWidget):
                 old_value = ''
 
         try:
-            if row == 1:
+            if row == 2:
                 overhead = int(self.item(1, 0).text())
                 assert overhead >= 0
                 self._configuration.scheduler_info.overhead = overhead
-            elif row == 2:
+            elif row == 3:
                 overhead = int(self.item(2, 0).text())
                 assert overhead >= 0
                 self._configuration.scheduler_info.overhead_activate = overhead
-            elif row == 3:
+            elif row == 4:
                 overhead = int(self.item(3, 0).text())
                 assert overhead >= 0
                 self._configuration.scheduler_info.overhead_terminate = overhead
@@ -200,10 +224,7 @@ class SchedulerTable(QTableWidget):
 
     def update_path(self):
         self._manual_change = False
-        self.item(0, 0).setText(self._configuration.scheduler_info.name)
+        name = self._configuration.scheduler_info.filename
+        self.item(1, 0).setText(name and os.path.relpath(
+            name, self._configuration.cur_dir))
         self._manual_change = True
-
-    def set_name(self, name):
-        self._configuration.scheduler_info.set_name(
-            name, self._configuration.cur_dir)
-        self.update_path()

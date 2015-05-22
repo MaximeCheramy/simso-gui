@@ -34,9 +34,6 @@ class ModelWindow(QTabWidget):
         configuration.configurationChanged.connect(self.configuration_changed)
         configuration.configurationSaved.connect(self.configuration_saved)
 
-    def set_scheduler(self, name):
-        self._scheduler_tab.set_name(name)
-
     def configuration_changed(self):
         self.etm_changed(self._configuration.etm)
         self.check_whole_config()
