@@ -190,10 +190,7 @@ class TasksTable(QTableWidget):
         combo = QComboBox()
         items = [task_type for task_type in Task.task_types_names]
         combo.addItems(items)
-        # FIXME: only until I get an access to the documentation.
-        for i, t in enumerate(Task.task_types_names):
-            if t == task.task_type:
-                combo.setCurrentIndex(i)
+        combo.setCurrentIndex(combo.findText(task.task_type))
         combo.currentIndexChanged.connect(
             lambda x: self._cell_changed(row, self._dict_header['task_type']))
         self.setCellWidget(row, self._dict_header['task_type'], combo)
