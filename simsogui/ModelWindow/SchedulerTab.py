@@ -155,25 +155,31 @@ class SchedulerTable(QTableWidget):
             self._open_scheduler()
 
     def _select_scheduler(self, name):
+        try:
+            name = unicode(name)
+        except NameError:
+            pass
+
         if name == 'Custom scheduler...':
             self._configuration.scheduler_info.clas = ''
             self.item(1, 0).setFlags(Qt.ItemIsSelectable | Qt.ItemIsEnabled)
-            self.item(1, 0).setText(
-                os.path.relpath(self._configuration.scheduler_info.filename,
-                                self._configuration.cur_dir))
+            if self._configuration.scheduler_info.filename:
+                self.item(1, 0).setText(os.path.relpath(
+                    self._configuration.scheduler_info.filename,
+                    self._configuration.cur_dir))
             self._btn_open.setEnabled(True)
         else:
             self.item(1, 0).setFlags(Qt.ItemIsSelectable)
             self.item(1, 0).setText('')
             self._btn_open.setEnabled(False)
             self._configuration.scheduler_info.clas = name
+        self._configuration.conf_changed()
 
     def _open_scheduler(self):
         name = QFileDialog.getOpenFileName(
             self, caption="Open scheduler",
             directory=self._configuration.scheduler_info.filename,
             filter="*.py")
-        print(name)
         try:
             name = unicode(name)
         except NameError:
