@@ -83,6 +83,13 @@ class SchedulerTable(QTableWidget):
                         'Overhead schedule (cycles)',
                         'Overhead on activate (cycles)',
                         'Overhead on terminate (cycles)']
+        self._dict_header = {
+            'scheduler': 0,
+            'scheduler_path': 1,
+            'overhead_schedule': 2,
+            'overhead_activate': 3,
+            'overhead_terminate': 4
+        }
         self._configuration = configuration
         self._simulation_tab = simulation_tab
         self.refresh_table()
@@ -194,11 +201,11 @@ class SchedulerTable(QTableWidget):
             self._manual_change = True
             return
 
-        if row == 2:
+        if row == self._dict_header['overhead_schedule']:
             old_value = str(self._configuration.scheduler_info.overhead)
-        elif row == 3:
+        elif row == self._dict_header['overhead_activate']:
             old_value = str(self._configuration.scheduler_info.overhead_activate)
-        elif row == 4:
+        elif row == self._dict_header['overhead_terminate']:
             old_value = str(self._configuration.scheduler_info.overhead_terminate)
         elif row >= len(self._header):
             key = self._custom_fields[row - len(self._header)]
@@ -208,16 +215,16 @@ class SchedulerTable(QTableWidget):
                 old_value = ''
 
         try:
-            if row == 2:
-                overhead = int(self.item(1, 0).text())
+            if row == self._dict_header['overhead_schedule']:
+                overhead = int(self.item(row, 0).text())
                 assert overhead >= 0
                 self._configuration.scheduler_info.overhead = overhead
-            elif row == 3:
-                overhead = int(self.item(2, 0).text())
+            elif row == self._dict_header['overhead_activate']:
+                overhead = int(self.item(row, 0).text())
                 assert overhead >= 0
                 self._configuration.scheduler_info.overhead_activate = overhead
-            elif row == 4:
-                overhead = int(self.item(3, 0).text())
+            elif row == self._dict_header['overhead_terminate']:
+                overhead = int(self.item(row, 0).text())
                 assert overhead >= 0
                 self._configuration.scheduler_info.overhead_terminate = overhead
             elif row >= len(self._header):
