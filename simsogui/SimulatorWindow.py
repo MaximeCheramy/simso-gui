@@ -1,9 +1,9 @@
 #!/usr/bin/python
 # coding=utf-8
 
-from PyQt4.QtWebKit import QWebView
-from PyQt4.QtCore import Qt, QUrl, QSettings, QFileInfo
-from PyQt4.QtGui import QMainWindow, QMenu, QAction, QStyle, \
+# from PyQt5.QtWebKitWidgets import QWebView
+from PyQt5.QtCore import Qt, QUrl, QSettings, QFileInfo
+from PyQt5.QtWidgets import QMainWindow, QMenu, QAction, QStyle, \
     QToolBar, QFileDialog, qApp, QTabWidget, QDockWidget, QMessageBox
 
 import os.path

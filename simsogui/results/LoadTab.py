@@ -1,4 +1,4 @@
-from PyQt4.QtGui import QTableWidget, QTableWidgetItem, QAbstractItemView
+from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QAbstractItemView
 from ..QCopyTableWidget import QCopyTableWidget
 
 

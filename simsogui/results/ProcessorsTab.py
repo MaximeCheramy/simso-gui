@@ -1,5 +1,4 @@
-from PyQt4.QtGui import QTabWidget, QLabel, QVBoxLayout, QGroupBox, \
-    QScrollArea, QWidget
+from PyQt5.QtWidgets import QTabWidget, QLabel, QVBoxLayout, QGroupBox, QScrollArea, QWidget
 
 
 class ProcessorsTab(QTabWidget):

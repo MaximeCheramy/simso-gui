@@ -1,9 +1,8 @@
-from PyQt4.QtGui import QDialog, QSlider, QVBoxLayout, QHBoxLayout, \
-    QDoubleSpinBox, QSpinBox, QRadioButton, QWidget, QLineEdit, \
-    QRegExpValidator, QDialogButtonBox, QMessageBox, QGroupBox, QCheckBox, \
-    QComboBox, QLabel
-from PyQt4.QtCore import pyqtSignal, QRegExp
-from PyQt4 import QtCore
+from PyQt5.QtWidgets import QDialog, QSlider, QVBoxLayout, QHBoxLayout, QDoubleSpinBox, QSpinBox, QRadioButton, \
+    QWidget, QLineEdit, QDialogButtonBox, QMessageBox, QGroupBox, QCheckBox, QComboBox, QLabel
+from PyQt5.QtGui import QRegExpValidator
+from PyQt5.QtCore import pyqtSignal, QRegExp
+from PyQt5 import QtCore
 from simso.generator.task_generator import StaffordRandFixedSum, \
     gen_periods_loguniform, gen_periods_uniform, gen_periods_discrete, \
     gen_tasksets, UUniFastDiscard, gen_kato_utilizations
@@ -283,6 +282,7 @@ class TaskGeneratorDialog(QDialog):
 if __name__ == "__main__":
     from PyQt4 import QtGui
     import sys
+
     app = QtGui.QApplication(sys.argv)
     ex = TaskGeneratorDialog(5)
     if ex.exec_():

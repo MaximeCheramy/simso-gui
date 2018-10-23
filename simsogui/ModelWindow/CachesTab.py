@@ -3,8 +3,8 @@
 
 import re
 
-from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QTableWidget, QTableWidgetItem, QHeaderView, \
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QHeaderView, \
     QAbstractItemView, QMessageBox
 
 from .AddRemoveButtonBar import AddRemoveButtonBar
@@ -38,7 +38,7 @@ class CachesTable(QTableWidget):
         self._caches_list = configuration.caches_list
         QTableWidget.__init__(self, len(self._caches_list), 5, parent)
         self.horizontalHeader().setStretchLastSection(True)
-        self.horizontalHeader().setResizeMode(QHeaderView.ResizeToContents)
+        self.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.setHorizontalHeaderLabels(["id", "Name", "Size", 'Access Time',
                                         "Miss penalty"])
         self.setVerticalHeaderLabels([""])
@@ -136,7 +136,7 @@ class CachesTable(QTableWidget):
             if self._is_used(self._caches_list[index]):
                 reply = QMessageBox.question(
                     self, "Confirmation", "This cache is currently used, are "
-                    "you sure you want to remove it?",
+                                          "you sure you want to remove it?",
                     QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
                 if reply == QMessageBox.Yes:
                     self._remove_cache(self._caches_list[index])

@@ -1,4 +1,4 @@
-from PyQt4.QtGui import QWidget, QHBoxLayout, QPushButton, QSpacerItem, \
+from PyQt5.QtWidgets import QWidget, QHBoxLayout, QPushButton, QSpacerItem, \
     QSizePolicy, QStyle, qApp
 
 

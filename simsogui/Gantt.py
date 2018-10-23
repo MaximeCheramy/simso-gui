@@ -1,8 +1,7 @@
-from PyQt4.QtCore import Qt, QRect, QRectF, QLineF, QPointF
-from PyQt4.QtGui import QDialog, QVBoxLayout, QListWidget, QToolBar, QWidget, \
-    QHBoxLayout, QPushButton, qApp, QStyle, QSizePolicy, QBrush,\
-    QScrollArea, QFileDialog, QPainter, QColor, QPen, QFont,\
-    QImage, QListWidgetItem
+from PyQt5.QtCore import Qt, QRect, QRectF, QLineF, QPointF
+from PyQt5.QtWidgets import QDialog, QVBoxLayout, QListWidget, QToolBar, QWidget, \
+    QHBoxLayout, QPushButton, qApp, QStyle, QSizePolicy, QScrollArea, QFileDialog, QListWidgetItem
+from PyQt5.QtGui import QPainter, QColor, QPen, QFont, QBrush, QImage
 
 from .QxtSpanSlider import QxtSpanSliderWidget
 
@@ -12,13 +11,13 @@ from simso.core import JobEvent, ProcEvent
 class GanttConfigure(QDialog):
     def __init__(self, sim, start, end):
         QDialog.__init__(self)
-        #self.setCaption("Gantt configuration")
+        # self.setCaption("Gantt configuration")
         self.layout = QVBoxLayout(self)
 
-#        self._slider = QxtSpanSliderWidget(
-#            sim.observe_window[0] // sim.cycles_per_ms,
-#            min(sim.now(), sim.observe_window[1]) // sim.cycles_per_ms,
-#            self)
+        #        self._slider = QxtSpanSliderWidget(
+        #            sim.observe_window[0] // sim.cycles_per_ms,
+        #            min(sim.now(), sim.observe_window[1]) // sim.cycles_per_ms,
+        #            self)
         self._slider = QxtSpanSliderWidget(
             0,
             min(sim.now(), sim.duration) // sim.cycles_per_ms,
@@ -35,7 +34,7 @@ class GanttConfigure(QDialog):
             item = QListWidgetItem(task.name, self._list_elements)
             item.setData(Qt.UserRole, task)
             self._list_elements.addItem(item)
-        #self._list_elements.setDragDropMode(QListWidget.InternalMove)
+        # self._list_elements.setDragDropMode(QListWidget.InternalMove)
         for row in range(0, self._list_elements.count()):
             self._list_elements.item(row).setCheckState(Qt.Checked)
         self.layout.addWidget(self._list_elements)
@@ -159,7 +158,7 @@ class GanttCanvas(QWidget):
         qp.drawRect(QRectF(x + self.convX(start_x), y + 10,
                            self.convX(end_x - start_x), 40))
         qp.restore()
-        #qp.drawLine(x + self.convX(start_x), y + 10,
+        # qp.drawLine(x + self.convX(start_x), y + 10,
         #            x + self.convX(end_x), y + 10)
 
     def plot_vert_line_graph(self, qp, x_line, color, c, arrow_up=False,
@@ -374,7 +373,7 @@ class GanttCanvas(QWidget):
         self._image = self.create_qimage()
         for image in self._image:
             qp.begin(self._image[0])
-            #qp.setRenderHint(QPainter.Antialiasing)
+            # qp.setRenderHint(QPainter.Antialiasing)
             self.plot_gantt(
                 None, qp, self._sim, self._start_date, self._end_date)
             qp.end()

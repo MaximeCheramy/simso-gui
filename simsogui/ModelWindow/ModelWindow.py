@@ -1,7 +1,8 @@
 #!/usr/bin/python
 # coding=utf-8
 
-from PyQt4.QtGui import QTabWidget, QStyle, QIcon
+from PyQt5.QtGui import QIcon
+from PyQt5.QtWidgets import QTabWidget, QStyle
 
 from .GeneralTab import GeneralTab
 from .SchedulerTab import SchedulerTab

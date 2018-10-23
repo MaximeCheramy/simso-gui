@@ -1,8 +1,8 @@
 # coding=utf-8
 
 import os
-from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QTableWidget, QTableWidgetItem, QFileDialog, \
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QFileDialog, \
     QPushButton, QHeaderView, QWidget, QHBoxLayout, QComboBox
 
 from .CustomFieldsEditor import CustomFieldsEditor
@@ -105,9 +105,9 @@ class SchedulerTable(QTableWidget):
         self.setVerticalHeaderLabels(labels)
         self.horizontalHeader().setStretchLastSection(False)
         header = self.horizontalHeader()
-        header.setResizeMode(0, QHeaderView.Stretch)
-        header.setResizeMode(1, QHeaderView.Interactive)
-        #header.setResizeMode(2, QHeaderView.Interactive)
+        header.setSectionResizeMode(0, QHeaderView.Stretch)
+        header.setSectionResizeMode(1, QHeaderView.Interactive)
+        # header.setSectionResizeMode(2, QHeaderView.Interactive)
         self.horizontalHeader().hide()
 
         combo = QComboBox()

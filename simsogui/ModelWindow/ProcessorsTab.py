@@ -1,9 +1,9 @@
 import re
 
-from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QTableWidget, QTableWidgetItem, QHeaderView, \
-    QAbstractItemView, QWidget, QHBoxLayout, QPushButton, QColor
-
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QHeaderView, \
+    QAbstractItemView, QWidget, QHBoxLayout, QPushButton
+from PyQt5.QtGui import QColor
 from .AddRemoveButtonBar import AddRemoveButtonBar
 from .Tab import Tab
 from .CustomFieldsEditor import CustomFieldsEditor
@@ -72,7 +72,7 @@ class ProcessorsTable(QTableWidget):
                               parent)
         self._configuration = configuration
         self._manual_change = True
-        self.horizontalHeader().setResizeMode(QHeaderView.ResizeToContents)
+        self.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.horizontalHeader().setStretchLastSection(True)
         self._header = ['id', 'Name', 'CS overhead', 'CL overhead', 'Caches',
                         'Cycles / mem access', 'Speed']
@@ -143,7 +143,7 @@ class ProcessorsTable(QTableWidget):
                 item = QTableWidgetItem(str(proc_info.data[key]))
             else:
                 item = QTableWidgetItem('')
-            item.setBackgroundColor(QColor.fromRgb(200, 255, 200))
+            item.setBackground(QColor.fromRgb(200, 255, 200))
             self.setItem(row, col + len(self._header), item)
 
     def _cell_changed(self, row, col):
@@ -218,7 +218,7 @@ class ProcessorsTable(QTableWidget):
                 key = self._custom_fields[col - len(self._header)]
                 proc.data[key] = convert_function[
                     self._configuration.proc_data_fields[key]](
-                        str(self.item(row, col).text()))
+                    str(self.item(row, col).text()))
 
             self._configuration.conf_changed()
         except (ValueError, AssertionError):

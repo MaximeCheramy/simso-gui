@@ -1,7 +1,8 @@
 # coding=utf-8
 
-from PyQt4.QtGui import QTabWidget, QTableWidget, QTableWidgetItem, QWidget,\
-    QVBoxLayout, QScrollArea, QAbstractItemView, QToolBox, QColor
+from PyQt5.QtWidgets import QTabWidget, QTableWidget, QTableWidgetItem, QWidget, QVBoxLayout, QScrollArea, \
+    QAbstractItemView, QToolBox
+from PyQt5.QtGui import QColor
 import numpy
 from ..QCopyTableWidget import QCopyTableWidget
 
@@ -40,7 +41,7 @@ class JobsList(QCopyTableWidget):
                 end_date = float(job.end_date) / cycles_per_ms
                 self.setItem(curRow, 2, QTableWidgetItem("%.4f" % end_date))
                 if job.exceeded_deadline:
-                    self.item(curRow, 2).setBackgroundColor(
+                    self.item(curRow, 2).setBackground(
                         QColor(220, 180, 180))
 
             self.setItem(curRow, 3,
@@ -59,7 +60,7 @@ class JobsList(QCopyTableWidget):
                 if job.task.n_instr:
                     self.setItem(curRow, 6, QTableWidgetItem(
                         "%.4f" % (
-                            float(job.computation_time) / job.task.n_instr)))
+                                float(job.computation_time) / job.task.n_instr)))
             self.setItem(curRow, 7,
                          QTableWidgetItem(str(job.preemption_count)))
             self.setItem(curRow, 8,

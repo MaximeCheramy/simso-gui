@@ -1,10 +1,10 @@
-from PyQt4.QtCore import Qt, QByteArray, QMimeData
-from PyQt4.QtGui import QTableWidget, QApplication
+from PyQt5.QtCore import Qt, QByteArray, QMimeData
+from PyQt5.QtWidgets import QTableWidget, QApplication
 
 
 class QCopyTableWidget(QTableWidget):
     def keyPressEvent(self, event):
-        if(event.key() == Qt.Key_C and event.modifiers() & Qt.ControlModifier):
+        if (event.key() == Qt.Key_C and event.modifiers() & Qt.ControlModifier):
             indexes = self.selectionModel().selectedIndexes()
             previous = indexes[0]
             values = QByteArray()

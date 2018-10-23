@@ -1,4 +1,4 @@
-from PyQt4.QtGui import QWidget, QStatusBar, QVBoxLayout
+from PyQt5.QtWidgets import QWidget, QStatusBar, QVBoxLayout
 
 
 class Tab(QWidget):

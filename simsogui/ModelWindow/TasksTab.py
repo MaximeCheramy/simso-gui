@@ -3,11 +3,10 @@
 
 import re
 
-from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QTableWidget, QTableWidgetItem, QHeaderView, \
-    QAbstractItemView, QFileDialog, QColor, QWidget, QPushButton, \
-    QHBoxLayout, QComboBox
-
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QHeaderView, QAbstractItemView, QFileDialog, QWidget, \
+    QPushButton, QHBoxLayout, QComboBox
+from PyQt5.QtGui import QColor
 from .Tab import Tab
 from .AddRemoveButtonBar import AddRemoveButtonBar
 from ..TaskGenerator import TaskGeneratorDialog
@@ -99,7 +98,7 @@ class TasksTable(QTableWidget):
     def __init__(self, parent, configuration):
         QTableWidget.__init__(self, 0, 0, parent)
         self._ignore_cell_changed = False
-        self.horizontalHeader().setResizeMode(QHeaderView.Interactive)
+        self.horizontalHeader().setSectionResizeMode(QHeaderView.Interactive)
         self.horizontalHeader().setStretchLastSection(True)
         self.verticalHeader().hide()
         self._configuration = configuration
@@ -230,7 +229,7 @@ class TasksTable(QTableWidget):
                 item = QTableWidgetItem(str(task.data[key]))
             else:
                 item = QTableWidgetItem('')
-            item.setBackgroundColor(QColor.fromRgb(200, 255, 200))
+            item.setBackground(QColor.fromRgb(200, 255, 200))
             self.setItem(row, col + len(self._header), item)
 
         self._ignore_cell_changed = False
@@ -423,7 +422,7 @@ class TasksTable(QTableWidget):
         QTableWidget.keyPressEvent(self, event)
         if event.key() == Qt.Key_Delete:
             self.remove_selected_tasks()
-        if(event.key() == Qt.Key_C and event.modifiers() & Qt.ControlModifier):
+        if (event.key() == Qt.Key_C and event.modifiers() & Qt.ControlModifier):
             indexes = self.selectionModel().selectedIndexes()
             # TODO: mettre dans un format xml.
             print("copy : ", indexes)

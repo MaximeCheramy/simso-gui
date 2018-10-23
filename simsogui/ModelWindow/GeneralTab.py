@@ -1,6 +1,6 @@
 # coding=utf-8
 
-from PyQt4.QtGui import QTableWidget, QTableWidgetItem, QComboBox
+from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QComboBox
 
 from .Tab import Tab
 from simso.core.etm import execution_time_model_names
@@ -46,22 +46,24 @@ class GeneralTable(QTableWidget):
         def activation_handler(x):
             configuration.etm = execution_time_model_names[str(x)]
             configuration.conf_changed()
+
         item.activated['QString'].connect(activation_handler)
 
-#        self._update_observe_window()
+        #        self._update_observe_window()
 
         self.cellChanged.connect(self._cell_changed)
-#        self.cellActivated.connect(self._cell_activated)
 
-#    def _update_observe_window(self):
-#        if self._configuration.observe_window:
-#            item = QTableWidgetItem('{} to {}'.format(
-#                self._configuration.observe_window[0],
-#                self._configuration.observe_window[1]))
-#        else:
-#            item = QTableWidgetItem('Entire duration')
-#        item.setFlags(item.flags() ^ (Qt.ItemIsEditable))
-#        self.setItem(5, 0, item)
+    #        self.cellActivated.connect(self._cell_activated)
+
+    #    def _update_observe_window(self):
+    #        if self._configuration.observe_window:
+    #            item = QTableWidgetItem('{} to {}'.format(
+    #                self._configuration.observe_window[0],
+    #                self._configuration.observe_window[1]))
+    #        else:
+    #            item = QTableWidgetItem('Entire duration')
+    #        item.setFlags(item.flags() ^ (Qt.ItemIsEditable))
+    #        self.setItem(5, 0, item)
 
     def etm_changed(self, etm):
         if etm == 'cache':
@@ -69,15 +71,15 @@ class GeneralTable(QTableWidget):
         else:
             self.verticalHeader().hideSection(3)
 
-#    def _cell_activated(self, row, col):
-#        if row == 5:
-#            dialog = ObservationWindowConfigure(self._configuration)
-#            if dialog.exec_():
-#                self._configuration.observe_window = \
-#                    dialog.getObservationWindow()
-#
-#                self._configuration.conf_changed()
-#                self._update_observe_window()
+    #    def _cell_activated(self, row, col):
+    #        if row == 5:
+    #            dialog = ObservationWindowConfigure(self._configuration)
+    #            if dialog.exec_():
+    #                self._configuration.observe_window = \
+    #                    dialog.getObservationWindow()
+    #
+    #                self._configuration.conf_changed()
+    #                self._update_observe_window()
 
     def _cell_changed(self, row, col):
         if not self._manual_change:

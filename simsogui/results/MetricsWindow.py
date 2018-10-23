@@ -1,4 +1,4 @@
-from PyQt4.QtGui import QTabWidget, QVBoxLayout, QDialog, QButtonGroup, \
+from PyQt5.QtWidgets import QTabWidget, QVBoxLayout, QDialog, QButtonGroup, \
     QRadioButton, QPushButton, QWidget, QHBoxLayout, QLabel, QGroupBox
 from ..QxtSpanSlider import QxtSpanSliderWidget
 from .LoadTab import LoadTable
