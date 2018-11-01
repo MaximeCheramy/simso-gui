@@ -20,6 +20,7 @@ setup(
     packages=find_packages(),
     install_requires=[
         'simso>=0.8',
+        'PyQt5>=5.11.3'
     ],
     entry_points={
         'gui_scripts': ['simso = simsogui:run_gui']
