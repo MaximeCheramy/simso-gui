@@ -2,11 +2,9 @@
 # coding=utf-8
 
 import re
+from PyQt5.QtWidgets import QAbstractItemView, QHeaderView, QMessageBox, QTableWidgetItem, QTableWidget
 
-from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QTableWidget, QTableWidgetItem, QHeaderView, \
-    QAbstractItemView, QMessageBox
-
+from PyQt5.QtCore import Qt
 from .AddRemoveButtonBar import AddRemoveButtonBar
 from .Tab import Tab
 from simso.core.Caches import Cache_LRU
@@ -38,7 +36,7 @@ class CachesTable(QTableWidget):
         self._caches_list = configuration.caches_list
         QTableWidget.__init__(self, len(self._caches_list), 5, parent)
         self.horizontalHeader().setStretchLastSection(True)
-        self.horizontalHeader().setResizeMode(QHeaderView.ResizeToContents)
+        self.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.setHorizontalHeaderLabels(["id", "Name", "Size", 'Access Time',
                                         "Miss penalty"])
         self.setVerticalHeaderLabels([""])

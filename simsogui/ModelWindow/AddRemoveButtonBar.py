@@ -1,5 +1,4 @@
-from PyQt4.QtGui import QWidget, QHBoxLayout, QPushButton, QSpacerItem, \
-    QSizePolicy, QStyle, qApp
+from PyQt5.QtWidgets import QApplication, QHBoxLayout, QPushButton, QSizePolicy, QSpacerItem, QStyle, QWidget
 
 
 class AddRemoveButtonBar(QWidget):
@@ -8,7 +7,7 @@ class AddRemoveButtonBar(QWidget):
         QWidget.__init__(self, parent)
         layout = QHBoxLayout()
         remove_button = QPushButton(remove_text, self)
-        remove_button.setIcon(qApp.style().standardIcon(QStyle.SP_TrashIcon))
+        remove_button.setIcon(QApplication.style().standardIcon(QStyle.SP_TrashIcon))
         remove_button.clicked.connect(remove_method)
         layout.addWidget(remove_button)
         layout.setContentsMargins(8, 0, 8, 0)

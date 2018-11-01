@@ -2,11 +2,9 @@
 # coding=utf-8
 
 import re
-
-from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QTableWidget, QTableWidgetItem, QHeaderView, \
-    QAbstractItemView, QFileDialog, QColor, QWidget, QPushButton, \
-    QHBoxLayout, QComboBox
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QAbstractItemView, QComboBox, QFileDialog, QHBoxLayout, QHeaderView, QPushButton, QTableWidgetItem, QTableWidget, QWidget
+from PyQt5.QtGui import QColor
 
 from .Tab import Tab
 from .AddRemoveButtonBar import AddRemoveButtonBar
@@ -99,7 +97,7 @@ class TasksTable(QTableWidget):
     def __init__(self, parent, configuration):
         QTableWidget.__init__(self, 0, 0, parent)
         self._ignore_cell_changed = False
-        self.horizontalHeader().setResizeMode(QHeaderView.Interactive)
+        self.horizontalHeader().setSectionResizeMode(QHeaderView.Interactive)
         self.horizontalHeader().setStretchLastSection(True)
         self.verticalHeader().hide()
         self._configuration = configuration
@@ -246,7 +244,7 @@ class TasksTable(QTableWidget):
 
     def _cell_activated(self, row, col):
         if col == self._dict_header['sdp']:
-            name = QFileDialog.getOpenFileName(self, caption="Open stack file")
+            name = QFileDialog.getOpenFileName(self, caption="Open stack file")[0]
             if name:
                 task = self._configuration.task_info_list[row]
                 task.set_stack_file(str(name), self._configuration.cur_dir)

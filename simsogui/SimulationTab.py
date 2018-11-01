@@ -1,5 +1,5 @@
-from PyQt4.QtCore import QThread, SIGNAL, QObject
-from PyQt4.QtGui import QMdiArea, QProgressDialog, QMessageBox
+from PyQt5.QtCore import QThread, pyqtSignal
+from PyQt5.QtWidgets import QMdiArea, QMessageBox, QProgressDialog
 
 import os.path
 import sys
@@ -12,9 +12,12 @@ from .ModelWindow import ModelWindow
 from .results import ResultsWindow
 from .Configuration import Configuration
 
-
 class RunSimulation(QThread):
+
+    updateProgressBar = pyqtSignal(int)
+
     class Console(object):
+
         def __init__(self):
             self.log = []
 
@@ -37,8 +40,8 @@ class RunSimulation(QThread):
     def set_model(self, model):
         self._model = model
 
-    def updateProgressBar(self, value):
-        self.emit(SIGNAL("updateProgressBar"), value)
+    def updateProgress(self, value):
+        self.updateProgressBar.emit(value)
 
     def run(self):
         try:
@@ -153,13 +156,12 @@ class SimulationTab(QMdiArea):
 
                 self.worker = RunSimulation()
                 self._model = Model(self._configuration,
-                                    callback=self.worker.updateProgressBar)
+                                    callback=self.worker.updateProgress)
                 self.worker.set_model(self._model)
 
                 self.worker.finished.connect(self.runFinished)
                 self.worker.start()
-                QObject.connect(self.worker, SIGNAL("updateProgressBar"),
-                                self.updateProgressBar)
+                self.worker.updateProgressBar.connect(self.updateProgressBar)
 
             except Exception as msg:
                 QMessageBox.warning(self, "Configuration error", str(msg))

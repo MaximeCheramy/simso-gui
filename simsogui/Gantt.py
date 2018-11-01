@@ -1,8 +1,6 @@
-from PyQt4.QtCore import Qt, QRect, QRectF, QLineF, QPointF
-from PyQt4.QtGui import QDialog, QVBoxLayout, QListWidget, QToolBar, QWidget, \
-    QHBoxLayout, QPushButton, qApp, QStyle, QSizePolicy, QBrush,\
-    QScrollArea, QFileDialog, QPainter, QColor, QPen, QFont,\
-    QImage, QListWidgetItem
+from PyQt5.QtCore import Qt, QRect, QRectF, QLineF, QPointF
+from PyQt5.QtGui import QPen, QFont, QImage, QPainter, QColor, QBrush
+from PyQt5.QtWidgets import QApplication, QDialog, QFileDialog, QHBoxLayout, QListWidgetItem, QListWidget, QPushButton, QScrollArea, QSizePolicy, QStyle, QToolBar, QVBoxLayout, QWidget
 
 from .QxtSpanSlider import QxtSpanSliderWidget
 
@@ -62,11 +60,7 @@ class GanttConfigure(QDialog):
         res = []
         for row in range(0, self._list_elements.count()):
             if self._list_elements.item(row).checkState() == Qt.Checked:
-                try:
-                    data = self._list_elements.item(row).data(Qt.UserRole).toPyObject()
-                except AttributeError:
-                    data = self._list_elements.item(row).data(Qt.UserRole)
-
+                data = self._list_elements.item(row).data(Qt.UserRole)
                 res.append(data)
         return res
 
@@ -332,7 +326,7 @@ class GanttCanvas(QWidget):
     def saveImg(self):
         imageFile = QFileDialog.getSaveFileName(
             filter="*.png",
-            caption="Image file name")
+            caption="Image file name")[0]
         if imageFile:
             if str(imageFile[-4:]) != ".png":
                 imageFile += ".png"
@@ -392,7 +386,7 @@ class GanttToolBar(QToolBar):
     def __init__(self, parent, canvas):
         QToolBar.__init__(self, parent)
         self._canvas = canvas
-        self.addAction(qApp.style().standardIcon(QStyle.SP_DialogSaveButton),
+        self.addAction(QApplication.style().standardIcon(QStyle.SP_DialogSaveButton),
                        "Save", canvas.saveImg)
         self.addAction("Zoom +", canvas.zoomUp)
         self.addAction("Zoom -", canvas.zoomDown)

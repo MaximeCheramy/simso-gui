@@ -8,7 +8,7 @@ def run_gui():
     """
     import sys
     import optparse
-    from PyQt4.QtGui import QApplication
+    from PyQt5.QtWidgets import QApplication
     from simsogui.SimulatorWindow import SimulatorWindow
 
     parser = optparse.OptionParser()
