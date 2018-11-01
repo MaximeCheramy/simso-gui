@@ -1,6 +1,6 @@
 Copyright LAAS-CNRS (2012-2013)
 
-maxime.cheramy@laas.fr
+maxime.cheramy@gmail.com
 
 This software is a computer program whose purpose is to provide a 
 simulator for Multiprocessor Real-Time Scheduling with Overheads.

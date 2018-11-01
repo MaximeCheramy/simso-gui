@@ -6,8 +6,8 @@ setup(
     version=simsogui.__version__,
     description='Graphical User Interface for SimSo',
     author='Maxime Cheramy',
-    author_email='maxime.cheramy@laas.fr',
-    url='http://homepages.laas.fr/mcheramy/simso/',
+    author_email='maxime.cheramy@gmail.com',
+    url='http://projects.laas.fr/simso/',
     classifiers=[
         'Programming Language :: Python',
         'Programming Language :: Python :: 3',

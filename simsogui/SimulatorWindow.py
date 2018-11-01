@@ -193,10 +193,7 @@ class SimulatorWindow(QMainWindow):
             "SimSo is a free software developed by Maxime Cheramy (LAAS-CNRS).<br/>"
             "This software is distributed under the <a href='http://www.cecill.info'>CECILL license</a>, "
             "compatible with the GNU GPL.<br/><br/>"
-            "Contact: <a href='mailto:maxime.cheramy@laas.fr'>maxime.cheramy@laas.fr</a>".format(simso.__version__, simsogui.__version__)
-#            "<br/><hr/><br/>"
-#            "The Code Editor, copyright the <a href='http://www.iep-project.org/'>IEP development team</a>, "
-#            "was reproduced and integrated into SimSo in respect of the (new) BSD license."
+            "Contact: <a href='mailto:maxime.cheramy@gmail.com'>maxime.cheramy@gmail.com</a>".format(simso.__version__, simsogui.__version__)
         )
 
     def showDocumentation(self):
