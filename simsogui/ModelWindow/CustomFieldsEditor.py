@@ -1,5 +1,4 @@
-from PyQt4.QtGui import QDialog, QVBoxLayout, QWidget, QHBoxLayout, QLabel, \
-    QLineEdit, QComboBox, QPushButton, QListWidget, QAbstractItemView
+from PyQt5.QtWidgets import QAbstractItemView, QComboBox, QDialog, QHBoxLayout, QLabel, QLineEdit, QListWidget, QPushButton, QVBoxLayout, QWidget
 from .AddRemoveButtonBar import AddRemoveButtonBar
 import re
 

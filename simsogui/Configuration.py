@@ -1,4 +1,4 @@
-from PyQt4.QtCore import QObject, pyqtSignal
+from PyQt5.QtCore import QObject, pyqtSignal
 
 import simso.configuration as conf
 

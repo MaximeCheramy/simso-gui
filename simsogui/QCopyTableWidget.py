@@ -1,5 +1,5 @@
-from PyQt4.QtCore import Qt, QByteArray, QMimeData
-from PyQt4.QtGui import QTableWidget, QApplication
+from PyQt5.QtCore import Qt, QByteArray, QMimeData
+from PyQt5.QtWidgets import QApplication, QTableWidget
 
 
 class QCopyTableWidget(QTableWidget):

@@ -1,6 +1,4 @@
-from PyQt4.QtGui import QTabWidget, QLabel, QVBoxLayout, QGroupBox, QWidget, \
-    QScrollArea
-
+from PyQt5.QtWidgets import QGroupBox, QLabel, QScrollArea, QTabWidget, QVBoxLayout, QWidget
 
 class SchedulerTab(QTabWidget):
     def __init__(self, result):
@@ -10,7 +8,7 @@ class SchedulerTab(QTabWidget):
         self.update()
 
     def update(self):
-        for i in range(self.layout().count()):
+        for _ in range(self.layout().count()):
             self.layout().itemAt(0).widget().close()
             self.layout().takeAt(0)
 

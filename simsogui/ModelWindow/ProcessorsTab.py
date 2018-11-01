@@ -1,8 +1,7 @@
 import re
-
-from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QTableWidget, QTableWidgetItem, QHeaderView, \
-    QAbstractItemView, QWidget, QHBoxLayout, QPushButton, QColor
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QAbstractItemView, QHBoxLayout, QHeaderView, QPushButton, QTableWidgetItem, QTableWidget, QWidget
+from PyQt5.QtGui import QColor
 
 from .AddRemoveButtonBar import AddRemoveButtonBar
 from .Tab import Tab
@@ -72,7 +71,7 @@ class ProcessorsTable(QTableWidget):
                               parent)
         self._configuration = configuration
         self._manual_change = True
-        self.horizontalHeader().setResizeMode(QHeaderView.ResizeToContents)
+        self.horizontalHeader().setSectionResizeMode(QHeaderView.ResizeToContents)
         self.horizontalHeader().setStretchLastSection(True)
         self._header = ['id', 'Name', 'CS overhead', 'CL overhead', 'Caches',
                         'Cycles / mem access', 'Speed']

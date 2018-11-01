@@ -1,10 +1,9 @@
 #!/usr/bin/python
 # coding=utf-8
 
-from PyQt4.QtWebKit import QWebView
-from PyQt4.QtCore import Qt, QUrl, QSettings, QFileInfo
-from PyQt4.QtGui import QMainWindow, QMenu, QAction, QStyle, \
-    QToolBar, QFileDialog, qApp, QTabWidget, QDockWidget, QMessageBox
+from PyQt5.QtWebEngineWidgets import QWebEngineView as QWebView
+from PyQt5.QtCore import Qt, QUrl, QSettings, QFileInfo
+from PyQt5.QtWidgets import QAction, QApplication, QDockWidget, QFileDialog, QMainWindow, QMenu, QMessageBox, QStyle, QTabWidget, QToolBar
 
 import os.path
 import simso
@@ -20,7 +19,7 @@ class SimulatorWindow(QMainWindow):
         self.setWindowTitle("SimSo: Real-Time Scheduling Simulator")
 
         # Possible actions:
-        style = qApp.style()
+        style = QApplication.style()
 
         # New
         self._newAction = QAction(
@@ -224,7 +223,7 @@ class SimulatorWindow(QMainWindow):
 
     def fileOpen(self):
         simulation_file = QFileDialog.getOpenFileName(
-            filter="*.xml", caption="Open XML simulation file.")
+            filter="*.xml", caption="Open XML simulation file.")[0]
         if simulation_file:
             self.open_file(simulation_file)
 
@@ -259,7 +258,7 @@ class SimulatorWindow(QMainWindow):
 
     def fileSaveAs(self):
         simulation_file = QFileDialog.getSaveFileName(
-            filter="*.xml", caption="Save XML simulation file.")
+            filter="*.xml", caption="Save XML simulation file.")[0]
         try:
             simulation_file = unicode(simulation_file)
         except NameError:

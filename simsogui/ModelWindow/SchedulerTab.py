@@ -1,9 +1,8 @@
 # coding=utf-8
 
 import os
-from PyQt4.QtCore import Qt
-from PyQt4.QtGui import QTableWidget, QTableWidgetItem, QFileDialog, \
-    QPushButton, QHeaderView, QWidget, QHBoxLayout, QComboBox
+from PyQt5.QtCore import Qt
+from PyQt5.QtWidgets import QComboBox, QFileDialog, QHBoxLayout, QHeaderView, QPushButton, QTableWidgetItem, QTableWidget, QWidget
 
 from .CustomFieldsEditor import CustomFieldsEditor
 from .Tab import Tab
@@ -105,9 +104,9 @@ class SchedulerTable(QTableWidget):
         self.setVerticalHeaderLabels(labels)
         self.horizontalHeader().setStretchLastSection(False)
         header = self.horizontalHeader()
-        header.setResizeMode(0, QHeaderView.Stretch)
-        header.setResizeMode(1, QHeaderView.Interactive)
-        #header.setResizeMode(2, QHeaderView.Interactive)
+        header.setSectionResizeMode(0, QHeaderView.Stretch)
+        header.setSectionResizeMode(1, QHeaderView.Interactive)
+        #header.setSectionResizeMode(2, QHeaderView.Interactive)
         self.horizontalHeader().hide()
 
         combo = QComboBox()
@@ -186,7 +185,7 @@ class SchedulerTable(QTableWidget):
         name = QFileDialog.getOpenFileName(
             self, caption="Open scheduler",
             directory=self._configuration.scheduler_info.filename,
-            filter="*.py")
+            filter="*.py")[0]
         try:
             name = unicode(name)
         except NameError:

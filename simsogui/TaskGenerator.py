@@ -1,9 +1,7 @@
-from PyQt4.QtGui import QDialog, QSlider, QVBoxLayout, QHBoxLayout, \
-    QDoubleSpinBox, QSpinBox, QRadioButton, QWidget, QLineEdit, \
-    QRegExpValidator, QDialogButtonBox, QMessageBox, QGroupBox, QCheckBox, \
-    QComboBox, QLabel
-from PyQt4.QtCore import pyqtSignal, QRegExp
-from PyQt4 import QtCore
+from PyQt5.QtGui import QRegExpValidator
+from PyQt5.QtWidgets import QCheckBox, QComboBox, QDialogButtonBox, QDialog, QDoubleSpinBox, QGroupBox, QHBoxLayout, QLabel, QLineEdit, QMessageBox, QRadioButton, QSlider, QSpinBox, QVBoxLayout, QWidget
+from PyQt5.QtCore import pyqtSignal, QRegExp
+from PyQt5 import QtCore, QtWidgets
 from simso.generator.task_generator import StaffordRandFixedSum, \
     gen_periods_loguniform, gen_periods_uniform, gen_periods_discrete, \
     gen_tasksets, UUniFastDiscard, gen_kato_utilizations
@@ -224,11 +222,17 @@ class TaskGeneratorDialog(QDialog):
         return self.interval_utilization.getMax()
 
     def generate(self):
+
+        n = self.get_nb_tasks()
+        if (n == 0):
+            QMessageBox.warning(
+                    self, "Generation failed",
+                    "Please check the utilization and the number of tasks.")
+            return
+
         if self.comboGenerator.currentIndex() == 0:
-            n = self.get_nb_tasks()
             u = StaffordRandFixedSum(n, self.get_utilization(), 1)
         elif self.comboGenerator.currentIndex() == 1:
-            n = self.get_nb_tasks()
             u = UUniFastDiscard(n, self.get_utilization(), 1)
         else:
             u = gen_kato_utilizations(1, self.get_min_utilization(),
@@ -244,6 +248,7 @@ class TaskGeneratorDialog(QDialog):
                                        p_types[3])
         else:
             p = gen_periods_discrete(n, 1, p_types[1])
+            
         if u and p:
             self.taskset = gen_tasksets(u, p)[0]
             self.accept()
@@ -281,9 +286,8 @@ class TaskGeneratorDialog(QDialog):
 
 
 if __name__ == "__main__":
-    from PyQt4 import QtGui
     import sys
-    app = QtGui.QApplication(sys.argv)
+    app = QtWidgets.QApplication(sys.argv)
     ex = TaskGeneratorDialog(5)
     if ex.exec_():
         print(ex.taskset)

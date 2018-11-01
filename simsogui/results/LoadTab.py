@@ -1,4 +1,5 @@
-from PyQt4.QtGui import QTableWidget, QTableWidgetItem, QAbstractItemView
+from PyQt5.QtWidgets import QTableWidget, QTableWidgetItem, QAbstractItemView
+#from PyQt5.QtWidgets import *
 from ..QCopyTableWidget import QCopyTableWidget
 
 
@@ -20,7 +21,7 @@ class LoadTable(QCopyTableWidget):
         sum_overhead = 0.0
 
         curRow = 0
-        for proc, load, overhead in self.result.calc_load():
+        for _, load, overhead in self.result.calc_load():
             self.setItem(curRow, 0,
                          QTableWidgetItem("%.4f" % (load + overhead)))
             self.setItem(curRow, 1, QTableWidgetItem("%.4f" % (load)))

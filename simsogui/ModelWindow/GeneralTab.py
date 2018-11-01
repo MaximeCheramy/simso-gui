@@ -1,6 +1,6 @@
 # coding=utf-8
 
-from PyQt4.QtGui import QTableWidget, QTableWidgetItem, QComboBox
+from PyQt5.QtWidgets import QComboBox, QTableWidgetItem, QTableWidget
 
 from .Tab import Tab
 from simso.core.etm import execution_time_model_names

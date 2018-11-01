@@ -19,7 +19,7 @@ setup(
     ],
     packages=find_packages(),
     install_requires=[
-        'simso>=0.8',
+        'simso>=0.9',
     ],
     entry_points={
         'gui_scripts': ['simso = simsogui:run_gui']
