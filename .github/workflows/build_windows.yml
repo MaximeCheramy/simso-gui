@@ -18,7 +18,7 @@ jobs:
          pip install PyQt5==5.11.3
          #pip install -r requirements.txt
      - name: Generate binary
-       run: pyinstaller --onefile simsogui/__init__.py
+       run: pyinstaller --onefile simsogui/__init__.py --name simsogui_windows
      - name: Upload artifact
        uses: actions/upload-artifact@v1
        with:
