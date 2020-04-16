@@ -15,6 +15,8 @@ jobs:
      - name: Install dependencies
        run: |
          python -m pip install --upgrade pip
+         # Maybe move to a requirements file?
+         pip install PyInstaller
          pip install simso==0.8
          pip install PyQt5==5.11.3
          #pip install -r requirements.txt
