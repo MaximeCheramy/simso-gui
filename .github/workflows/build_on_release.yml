@@ -26,9 +26,9 @@ jobs:
        run:   |
          if [ "$RUNNER_OS" == "Linux" ]; then
               pyinstaller --onefile simsogui/__init__.py --name simsogui_ubuntu
-         elif [ "$RUNNER_OS" == "Windows ]; then
+         elif [ "$RUNNER_OS" == "Windows" ]; then
               pyinstaller --onefile simsogui/__init__.py --name simsogui_windows
-         elif [ "$RUNNER_OS" == "macOS ]; then
+         elif [ "$RUNNER_OS" == "macOS" ]; then
               pyinstaller --onefile simsogui/__init__.py --name simsogui_macOS
          else
               echo "$RUNNER_OS not supported"
