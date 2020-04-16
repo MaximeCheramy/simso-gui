@@ -23,9 +23,8 @@ jobs:
           #pip install -r requirements.txt
       - name: Generate binary
         run: pyinstaller --onefile simsogui/__init__.py --name simsogui_windows
-      - name: Upload the artifacts
-        uses: skx/github-action-publish-binaries@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Upload binaries to release
+      - uses: AButler/upload-release-assets@v2.0
         with:
-          args: 'simsogui_windows'
+          files: 'dist/simsogui_windows*'
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
