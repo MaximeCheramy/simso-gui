@@ -1,0 +1,31 @@
+on:
+  release:
+    types: [created]
+name: Build on Release
+jobs:
+  generate:
+    name: Create release-artifacts
+    runs-on: windows-latest
+    steps:
+      - name: Checkout the repository
+        uses: actions/checkout@v2
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v1
+        with:
+          python-version: 3.8
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # Maybe move to a requirements file?
+          pip install PyInstaller
+          pip install simso==0.8
+          pip install PyQt5==5.11.3
+          #pip install -r requirements.txt
+      - name: Generate binary
+        run: pyinstaller --onefile simsogui/__init__.py --name simsogui_windows
+      - name: Upload the artifacts
+        uses: skx/github-action-publish-binaries@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          args: 'simsogui_windows'
