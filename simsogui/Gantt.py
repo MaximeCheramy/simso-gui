@@ -111,13 +111,13 @@ class GanttCanvas(QWidget):
                 text = str(i)
                 fw = qp.fontMetrics().width(text)
                 fh = qp.fontMetrics().height()
-                qp.drawText(x + convX(i - start_date) - fw // 2,
+                qp.drawText(int(x + convX(i - start_date) - fw // 2),
                             graph_height + y + fh + 1, text)
                 pen = qp.pen()
                 if i != start_date and i != end_date:
                     qp.setPen(QPen(Qt.DotLine))
-                    qp.drawLine(x + convX(i - start_date), y,
-                                x + convX(i - start_date),
+                    qp.drawLine(int(x + convX(i - start_date)), y,
+                                int(x + convX(i - start_date)),
                                 graph_height + y + 1)
                     qp.setPen(pen)
 
@@ -126,8 +126,8 @@ class GanttCanvas(QWidget):
                 h = 2
             if h:
                 qp.drawLine(
-                    x + convX(i - start_date), graph_height + 1 + y,
-                    x + convX(i - start_date), graph_height + y + 1 + h)
+                    int(x + convX(i - start_date)), graph_height + 1 + y,
+                    int(x + convX(i - start_date)), graph_height + y + 1 + h)
 
         qp.translate(x - 20, y + 65)
         qp.rotate(-90)
@@ -193,7 +193,7 @@ class GanttCanvas(QWidget):
         qp.setPen(color)
         qp.setBrush(color)
         x, y = self.origGraph(c)
-        qp.drawEllipse(x + self.convX(x_circle) - 1, y + 50 - 1, 3, 3)
+        qp.drawEllipse(int(x + self.convX(x_circle) - 1), y + 50 - 1, 3, 3)
         qp.restore()
 
     def get_color(self, i):
@@ -333,14 +333,14 @@ class GanttCanvas(QWidget):
             self._image[0].save(str(imageFile))
 
     def zoomDown(self):
-        self._vwidth /= 1.2
+        self._vwidth = int(self._vwidth / 1.2)
         if self._vwidth < 200:
             self._vwidth = 200
         self._width = self._vwidth + 40
         self._update()
 
     def zoomUp(self):
-        self._vwidth *= 1.2
+        self._vwidth = 	int(self._vwidth * 1.2)
         self._width = self._vwidth + 40
         self._update()
 
