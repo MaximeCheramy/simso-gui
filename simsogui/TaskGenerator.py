@@ -23,7 +23,7 @@ class _DoubleSlider(QSlider):
         QSlider.setMaximum(self, val * 100)
 
     def setValue(self, val):
-        QSlider.setValue(self, val * 100)
+        QSlider.setValue(self, int(val * 100))
 
 
 class IntervalSpinner(QWidget):
