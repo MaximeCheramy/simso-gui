@@ -142,7 +142,7 @@ class ProcessorsTable(QTableWidget):
                 item = QTableWidgetItem(str(proc_info.data[key]))
             else:
                 item = QTableWidgetItem('')
-            item.setBackgroundColor(QColor.fromRgb(200, 255, 200))
+            item.setBackground(QColor.fromRgb(200, 255, 200))
             self.setItem(row, col + len(self._header), item)
 
     def _cell_changed(self, row, col):

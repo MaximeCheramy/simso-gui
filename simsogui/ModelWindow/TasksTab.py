@@ -228,7 +228,7 @@ class TasksTable(QTableWidget):
                 item = QTableWidgetItem(str(task.data[key]))
             else:
                 item = QTableWidgetItem('')
-            item.setBackgroundColor(QColor.fromRgb(200, 255, 200))
+            item.setBackground(QColor.fromRgb(200, 255, 200))
             self.setItem(row, col + len(self._header), item)
 
         self._ignore_cell_changed = False
