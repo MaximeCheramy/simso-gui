@@ -27,3 +27,5 @@ def run_gui():
         aw = SimulatorWindow(args[0:])
         aw.show()
         sys.exit(app.exec_())
+
+run_gui()
